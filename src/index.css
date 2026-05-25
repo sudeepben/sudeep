@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: #0d1117;
+  --page-bg: 13 17 23;
+  --page-fg: 255 255 255;
+  --muted-fg: 255 255 255;
+  --panel-bg: 255 255 255;
+  --panel-alpha: 0.055;
+  --line-alpha: 0.1;
+  --grid-opacity: 0.16;
+  --page-glow: radial-gradient(circle at 20% 10%, rgba(249, 115, 22, 0.16), transparent 28%), radial-gradient(circle at 80% 0%, rgba(99, 102, 241, 0.16), transparent 32%), linear-gradient(180deg, #0d1117 0%, #0b0f16 48%, #111827 100%);
+}
+
+html.light {
+  color-scheme: light;
+  background: #f8fafc;
+  --page-bg: 248 250 252;
+  --page-fg: 13 17 23;
+  --muted-fg: 38 48 63;
+  --panel-bg: 255 255 255;
+  --panel-alpha: 0.82;
+  --line-alpha: 0.14;
+  --grid-opacity: 0.28;
+  --page-glow: radial-gradient(circle at 18% 8%, rgba(249, 115, 22, 0.18), transparent 30%), radial-gradient(circle at 85% 0%, rgba(14, 165, 233, 0.14), transparent 34%), linear-gradient(180deg, #f8fafc 0%, #fff7ed 52%, #eef2ff 100%);
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: rgb(var(--page-bg));
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html.light .text-white,
+html.light .text-white\/90,
+html.light .text-white\/80,
+html.light .text-white\/74,
+html.light .text-white\/72,
+html.light .text-white\/70,
+html.light .text-white\/68,
+html.light .text-white\/66,
+html.light .text-white\/65,
+html.light .text-white\/64,
+html.light .text-white\/62,
+html.light .text-white\/60,
+html.light .text-white\/58,
+html.light .text-white\/55,
+html.light .text-white\/50,
+html.light .text-white\/45,
+html.light .text-white\/42,
+html.light .text-white\/38,
+html.light .text-white\/36,
+html.light .text-white\/35 {
+  color: rgb(var(--page-fg) / 0.86) !important;
+}
+
+html.light .text-white\/74,
+html.light .text-white\/72,
+html.light .text-white\/70,
+html.light .text-white\/68,
+html.light .text-white\/66,
+html.light .text-white\/65,
+html.light .text-white\/64,
+html.light .text-white\/62,
+html.light .text-white\/60,
+html.light .text-white\/58,
+html.light .text-white\/55,
+html.light .text-white\/50,
+html.light .text-white\/45,
+html.light .text-white\/42,
+html.light .text-white\/38,
+html.light .text-white\/36,
+html.light .text-white\/35 {
+  color: rgb(var(--muted-fg) / 0.72) !important;
+}
+
+html.light .bg-ink {
+  background-color: rgb(255 255 255 / 0.78) !important;
+}
+
+html.light .bg-black\/10,
+html.light .bg-black\/15,
+html.light .bg-black\/20 {
+  background-color: rgb(15 23 42 / 0.04) !important;
+}
+
+html.light .border-white\/10,
+html.light .border-white\/12,
+html.light .border-white\/15 {
+  border-color: rgb(15 23 42 / 0.14) !important;
+}
+
+html.light [class*="bg-white/["],
+html.light [class*="bg-\\[rgba\\(13\\,17\\,23"] {
+  background-color: rgb(255 255 255 / 0.76) !important;
+}
+
+html.light .shadow-black\/20,
+html.light .shadow-black\/25,
+html.light .shadow-black\/30,
+html.light .shadow-black\/40 {
+  --tw-shadow-color: rgb(15 23 42 / 0.12) !important;
+}
+
+html.light .hero-note {
+  background: rgb(255 237 213 / 0.82) !important;
+  border-color: rgb(251 146 60 / 0.34) !important;
+}
+
+html.light .hero-note p {
+  color: rgb(124 45 18 / 0.9) !important;
+}
+
+html.light .portrait-caption p,
+html.light .portrait-caption .text-white\/70 {
+  color: rgb(255 255 255 / 0.86) !important;
+}

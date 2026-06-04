@@ -12,32 +12,50 @@ export function ContactFooter() {
     <section ref={ref} id="contact" className="creative-section relative min-h-screen overflow-hidden px-5 py-24 sm:px-8 lg:px-10">
       <div className="absolute inset-x-0 top-20 h-px bg-gradient-to-r from-transparent via-ember-500/60 to-transparent" />
       <div className="mx-auto grid min-h-[calc(100vh-12rem)] max-w-[92rem] content-between gap-16">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <p className="reveal-item creative-kicker">Contact</p>
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="reveal-item">
+            <p className="creative-kicker">Contact</p>
+            <p className="mt-6 max-w-sm text-sm leading-7 text-white/54">
+              Location: {contact.location}. Open to AI, data science, data engineering, and decision-support product conversations.
+            </p>
+          </div>
           <div>
-            <h2 className="reveal-item text-[clamp(4rem,13vw,12rem)] font-black uppercase leading-[0.82] tracking-[-0.09em] text-white">
-              Let&apos;s Talk<span className="ml-4 inline-block h-[0.13em] w-[0.13em] rounded-full bg-ember-500 align-middle" />
+            <h2 className="reveal-item text-[clamp(4rem,12vw,11rem)] font-black uppercase leading-[0.82] tracking-[-0.085em] text-white">
+              Let&apos;s build something<span className="ml-4 inline-block h-[0.13em] w-[0.13em] rounded-full bg-ember-500 align-middle" />
             </h2>
             <p className="reveal-item mt-8 max-w-2xl text-lg leading-8 text-white/62">
-              Have a messy information problem, AI product idea, or data engineering role where reliability matters?
+              Whether it&apos;s a role, a collaboration, or just a good conversation about data - I&apos;m all ears.
             </p>
-            <MagneticLink data-cursor="mail" href={`mailto:${contact.email}`} className="reveal-item mt-10 inline-flex items-center gap-3 text-2xl font-semibold text-white sm:text-4xl">
-              {contact.email}
-              <ArrowUpRight className="h-7 w-7 text-ember-300" />
-            </MagneticLink>
+            <div className="reveal-item mt-10 grid gap-3 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
+              <MagneticLink data-cursor="mail" href={`mailto:${contact.email}`} className="group inline-flex w-fit items-center gap-3">
+                {contact.email}
+                <ArrowUpRight className="h-7 w-7 text-ember-300 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </MagneticLink>
+              <MagneticLink data-cursor="open" href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className="inline-flex w-fit text-white/64 hover:text-white">
+                {contact.phone}
+              </MagneticLink>
+            </div>
           </div>
         </div>
 
         <footer className="reveal-item grid gap-8 border-t border-white/10 pt-8 text-sm text-white/52 md:grid-cols-4">
           <div>
-            <p className="creative-kicker mb-3">Location</p>
-            <p>{contact.location}</p>
+            <p className="creative-kicker mb-3">Identity</p>
+            <p>{contact.name}</p>
+            <p className="mt-2">{contact.brand}</p>
           </div>
           <div>
             <p className="creative-kicker mb-3">Socials</p>
             <div className="flex flex-col gap-2">
-              {socials.filter((item) => ["GitHub", "LinkedIn", "Blog"].includes(item.label)).map((item) => (
-                <MagneticLink key={item.label} data-cursor="open" href={item.href} target="_blank" rel="noreferrer" className="w-fit hover:text-white">
+              {socials.map((item) => (
+                <MagneticLink
+                  key={item.label}
+                  data-cursor="open"
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="w-fit hover:text-white"
+                >
                   {item.label}
                 </MagneticLink>
               ))}
@@ -46,7 +64,7 @@ export function ContactFooter() {
           <div>
             <p className="creative-kicker mb-3">Navigate</p>
             <div className="flex flex-col gap-2">
-              {["work", "info", "stack", "contact"].map((item) => (
+              {["work", "story", "info", "stack", "archive", "contact"].map((item) => (
                 <MagneticLink key={item} href={`#${item}`} className="w-fit capitalize hover:text-white">
                   {item}
                 </MagneticLink>

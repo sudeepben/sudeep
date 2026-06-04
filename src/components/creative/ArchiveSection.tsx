@@ -24,7 +24,7 @@ export function ArchiveSection() {
         </div>
 
         <div className="grid gap-5 lg:grid-cols-2">
-          <article className="reveal-item rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur">
+          <article className="reveal-item rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur">
             <div className="mb-8 flex items-center justify-between gap-4">
               <div>
                 <p className="creative-kicker">Experience</p>
@@ -36,7 +36,7 @@ export function ArchiveSection() {
               {experience.map((role) => (
                 <div key={`${role.company}-${role.title}`} className="group grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-[3.25rem_1fr]">
                   {role.logo ? (
-                    <img src={withBase(role.logo)} alt={`${role.company} logo`} className="h-12 w-12 rounded-xl border border-white/10 bg-white p-2 object-contain" />
+                    <img src={withBase(role.logo)} alt={`${role.company} logo`} className="h-12 w-12 rounded-md border border-white/10 bg-white p-2 object-contain" />
                   ) : (
                     <FallbackLogo label={role.company} />
                   )}
@@ -53,7 +53,7 @@ export function ArchiveSection() {
             </div>
           </article>
 
-          <article className="reveal-item rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur">
+          <article className="reveal-item rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur">
             <div className="mb-8">
               <p className="creative-kicker">Education</p>
               <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-white">Where the foundation formed.</h3>
@@ -62,7 +62,7 @@ export function ArchiveSection() {
               {education.map((school) => (
                 <div key={school.institution} className="grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-[3.25rem_1fr]">
                   {school.logo ? (
-                    <img src={withBase(school.logo)} alt={`${school.institution} logo`} className="h-12 w-12 rounded-xl border border-white/10 bg-white p-2 object-contain" />
+                    <img src={withBase(school.logo)} alt={`${school.institution} logo`} className="h-12 w-12 rounded-md border border-white/10 bg-white p-2 object-contain" />
                   ) : (
                     <FallbackLogo label={school.institution} />
                   )}
@@ -79,7 +79,7 @@ export function ArchiveSection() {
             </div>
           </article>
 
-          <article className="reveal-item rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur lg:col-span-2">
+          <article className="reveal-item rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur lg:col-span-2">
             <div className="mb-8 grid gap-4 md:grid-cols-[0.72fr_1.28fr]">
               <div>
                 <p className="creative-kicker">Credentials</p>
@@ -91,7 +91,7 @@ export function ArchiveSection() {
             </div>
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {certifications.map((cert) => (
-                <div key={cert.title} className="group rounded-2xl border border-white/10 bg-black/10 p-4 transition hover:border-ember-400/35 hover:bg-white/[0.055]">
+                <div key={cert.title} className="group rounded-lg border border-white/10 bg-black/10 p-4 transition hover:border-ember-400/35 hover:bg-white/[0.055]">
                   <div className="flex gap-3">
                     {cert.logo ? (
                       <img src={withBase(cert.logo)} alt={`${cert.issuer} logo`} className="h-10 w-10 rounded-lg border border-white/10 bg-white p-1.5 object-contain" />
@@ -113,7 +113,7 @@ export function ArchiveSection() {
             </div>
           </article>
 
-          <article className="reveal-item rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur lg:col-span-2">
+          <article className="reveal-item rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur lg:col-span-2">
             <div className="mb-8 grid gap-4 md:grid-cols-[0.72fr_1.28fr]">
               <div>
                 <p className="creative-kicker">Beyond the Classroom</p>
@@ -125,7 +125,7 @@ export function ArchiveSection() {
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               {growth.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 bg-black/10 p-4">
+                <div key={item.title} className="rounded-lg border border-white/10 bg-black/10 p-4">
                   <div className="flex items-start gap-3">
                     {item.logo ? (
                       <img src={withBase(item.logo)} alt={`${item.organization} logo`} className="h-10 w-10 rounded-lg border border-white/10 bg-white p-1.5 object-contain" />

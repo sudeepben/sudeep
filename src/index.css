@@ -5,15 +5,15 @@
 :root {
   color-scheme: dark;
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  background: #0d1117;
-  --page-bg: 13 17 23;
+  background: #0d0d0c;
+  --page-bg: 13 13 12;
   --page-fg: 255 255 255;
   --muted-fg: 255 255 255;
   --panel-bg: 255 255 255;
   --panel-alpha: 0.055;
   --line-alpha: 0.1;
-  --grid-opacity: 0.16;
-  --page-glow: radial-gradient(circle at 20% 10%, rgba(249, 115, 22, 0.16), transparent 28%), radial-gradient(circle at 80% 0%, rgba(99, 102, 241, 0.16), transparent 32%), linear-gradient(180deg, #0d1117 0%, #0b0f16 48%, #111827 100%);
+  --grid-opacity: 0.1;
+  --page-glow: radial-gradient(circle at 18% 10%, rgba(249, 115, 22, 0.12), transparent 26%), linear-gradient(180deg, #0d0d0c 0%, #11110f 52%, #0c0c0b 100%);
 }
 
 html.light {
@@ -80,7 +80,7 @@ a {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  border-radius: 999px;
+  border-radius: 0.5rem;
   border: 1px solid rgb(255 255 255 / 0.14);
   background: rgb(255 255 255 / 0.055);
   padding: 0.8rem 1.2rem;

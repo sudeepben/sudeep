@@ -1,4 +1,4 @@
-import { ArrowDown, Download, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Download, Github, Instagram, Linkedin, Mail, Phone } from "lucide-react";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { contact } from "../../data/socials";
@@ -9,6 +9,7 @@ const socialLinks = [
   { label: "GitHub", href: contact.github, icon: Github },
   { label: "LinkedIn", href: contact.linkedin, icon: Linkedin },
   { label: "Email", href: `mailto:${contact.email}`, icon: Mail },
+  { label: "Phone", href: `tel:${contact.phone.replace(/[^+\d]/g, "")}`, icon: Phone },
   { label: "Instagram", href: contact.instagram, icon: Instagram },
 ];
 
@@ -22,42 +23,37 @@ export function CreativeHero() {
     const context = gsap.context(() => {
       const timeline = gsap.timeline({ defaults: { ease: "expo.out" } });
       timeline
-        .from(".hero-meta", { y: 24, opacity: 0, duration: 0.8, stagger: 0.06, clearProps: "all" })
-        .from(".hero-copy", { y: 28, opacity: 0, duration: 0.9, stagger: 0.08, clearProps: "all" }, "-=0.65")
-        .fromTo(".hero-dot", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(2)" }, "-=0.45")
-        .from(".hero-portrait", { y: 60, rotate: -3, opacity: 0, duration: 1.1, clearProps: "all" }, "-=0.85");
+        .from(".hero-meta", { y: 20, opacity: 0, duration: 0.75, stagger: 0.05, clearProps: "all" })
+        .fromTo(".hero-dot", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.65, ease: "back.out(2)" }, "-=0.45");
     }, ref);
 
     return () => context.revert();
   }, []);
 
   return (
-    <section ref={ref} id="top" className="creative-section relative min-h-screen overflow-hidden px-5 pb-16 pt-24 sm:px-8 lg:px-10">
-      <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-[92rem] grid-rows-[1fr_auto]">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_22rem]">
-          <div>
-            <div className="hero-meta mb-10 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">
+    <section ref={ref} id="top" className="creative-section relative min-h-screen overflow-hidden px-5 pb-10 pt-24 sm:px-8 lg:px-10">
+      <div className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-[92rem] grid-rows-[1fr_auto]">
+        <div className="grid min-w-0 content-center gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+          <div className="min-w-0">
+            <div className="hero-meta mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">
               <span>{contact.email}</span>
               <span>© {new Date().getFullYear()}</span>
-              <span>Boulder, Colorado</span>
+              <span>{contact.location}</span>
+              <span>Portfolio / V1.0</span>
             </div>
 
-            <h1 className="creative-title hero-title-shell max-w-6xl text-[clamp(4.8rem,15vw,13.5rem)] font-black uppercase leading-[0.78] tracking-[-0.09em] text-white">
-              <span className="block overflow-hidden pb-4">
-                <span className="hero-line block">Sudeep</span>
-              </span>
-              <span className="block overflow-hidden pb-6">
-                <span className="hero-line block">
-                  Builds<span className="hero-dot ml-4 inline-block h-[0.13em] w-[0.13em] rounded-full bg-ember-500 align-middle" />
-                </span>
+            <h1 className="creative-title hero-title-shell max-w-full text-[clamp(3.35rem,9.4vw,8.8rem)] font-black uppercase leading-[0.82] tracking-[-0.065em] text-white">
+              <span className="block pb-4">Sudeep</span>
+              <span className="block pb-6">
+                Builds<span className="hero-dot ml-4 inline-block h-[0.13em] w-[0.13em] rounded-full bg-ember-500 align-middle" />
               </span>
             </h1>
 
-            <div className="mt-4 grid max-w-5xl gap-7 lg:grid-cols-[0.78fr_1.22fr]">
-              <p className="hero-copy text-xl leading-8 text-white/84">
+            <div className="mt-2 grid max-w-5xl min-w-0 gap-7 border-t border-white/10 pt-6 lg:grid-cols-[0.82fr_1.18fr]">
+              <p className="hero-copy max-w-[21rem] text-xl leading-8 text-white/86 sm:max-w-full md:text-2xl md:leading-9">
                 I build intelligent data systems that turn messy information into reliable decisions.
               </p>
-              <p className="hero-copy text-sm leading-7 text-white/58">
+              <p className="hero-copy max-w-[21rem] text-sm leading-7 text-white/58 sm:max-w-full">
                 Data Science graduate student and AI/Data Engineer focused on RAG systems, analytics pipelines, cloud-native applications, and decision-support products.
               </p>
             </div>
@@ -72,16 +68,16 @@ export function CreativeHero() {
             </div>
           </div>
 
-          <aside className="hero-portrait relative mx-auto w-full max-w-[18rem] lg:mx-0">
-            <div className="absolute -inset-10 rounded-full bg-ember-500/10 blur-3xl" />
-            <div className="relative rounded-[1.75rem] border border-white/14 bg-white/[0.065] p-3 shadow-2xl shadow-black/35 backdrop-blur-xl">
+          <aside className="hero-portrait relative mx-auto w-full max-w-[15rem] self-center lg:mx-0">
+            <div className="absolute -inset-8 rounded-full bg-ember-500/10 blur-3xl" />
+            <div className="relative border border-white/14 bg-[#111111]/70 p-2 shadow-2xl shadow-black/30">
               <img
                 src={withBase("/assets/profile-professional.jpg")}
                 alt="Benarjee Sudeep Sampath Pyla"
-                className="aspect-[4/5] w-full rounded-[1.25rem] object-cover object-center"
+                className="aspect-[4/5] w-full object-cover object-center grayscale"
               />
-              <div className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
-                <span>BSSP</span>
+              <div className="mt-3 flex items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+                <span>Benarjee Sudeep Sampath Pyla</span>
                 <span>AI/Data</span>
               </div>
             </div>

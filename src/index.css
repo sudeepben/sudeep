@@ -45,6 +45,7 @@ body {
   margin: 0;
   min-width: 320px;
   background: rgb(var(--page-bg));
+  overflow-x: hidden;
 }
 
 a {
@@ -54,6 +55,113 @@ a {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+}
+
+.creative-section {
+  position: relative;
+}
+
+.creative-title {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.creative-kicker {
+  font-family: "JetBrains Mono", SFMono-Regular, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgb(251 146 60);
+}
+
+.creative-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.055);
+  padding: 0.8rem 1.2rem;
+  color: rgb(255 255 255 / 0.82);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: border-color 220ms ease, background 220ms ease, color 220ms ease, transform 220ms ease;
+}
+
+.creative-button:hover {
+  border-color: rgb(249 115 22 / 0.7);
+  background: rgb(255 255 255 / 0.09);
+  color: rgb(255 255 255);
+}
+
+.creative-button-primary {
+  border-color: rgb(249 115 22);
+  background: rgb(249 115 22);
+  color: rgb(13 17 23);
+}
+
+.creative-button-primary:hover {
+  background: rgb(251 146 60);
+  color: rgb(13 17 23);
+}
+
+.creative-icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgb(255 255 255 / 0.56);
+  font-size: 0.84rem;
+  font-weight: 650;
+  transition: color 220ms ease;
+}
+
+.creative-icon-link:hover {
+  color: rgb(255 255 255);
+}
+
+.custom-cursor-dot,
+.custom-cursor-ring {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  display: none;
+  transform: translate(-50%, -50%);
+}
+
+.custom-cursor-dot {
+  height: 0.42rem;
+  width: 0.42rem;
+  border-radius: 999px;
+  background: rgb(249 115 22);
+}
+
+.custom-cursor-ring {
+  min-height: 2.4rem;
+  min-width: 2.4rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.28);
+  color: rgb(255 255 255);
+  font-family: "JetBrains Mono", SFMono-Regular, Consolas, monospace;
+  font-size: 0.48rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.has-custom-cursor .custom-cursor-dot,
+.has-custom-cursor .custom-cursor-ring {
+  display: flex;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -136,6 +244,32 @@ html.light .shadow-black\/25,
 html.light .shadow-black\/30,
 html.light .shadow-black\/40 {
   --tw-shadow-color: rgb(15 23 42 / 0.12) !important;
+}
+
+html.light .creative-button:not(.creative-button-primary),
+html.light .creative-icon-link,
+html.light .custom-cursor-ring {
+  color: rgb(15 23 42 / 0.7);
+}
+
+html.light .creative-button:not(.creative-button-primary) {
+  background: rgb(255 255 255 / 0.7);
+  border-color: rgb(15 23 42 / 0.14);
+}
+
+html.light .creative-button:not(.creative-button-primary):hover {
+  color: rgb(15 23 42);
+  border-color: rgb(249 115 22 / 0.55);
+}
+
+@media (max-width: 640px) {
+  .creative-button {
+    width: 100%;
+  }
+
+  .creative-icon-link span {
+    display: none;
+  }
 }
 
 html.light .hero-note {

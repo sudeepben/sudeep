@@ -5,3 +5,6 @@ dist
 .DS_Store
 *.local
 coverage
+audit-*.png
+.chrome-qa*/
+.eslintcache

@@ -1,22 +1,24 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { MagneticLink } from "../creative/MagneticLink";
 import { LogoMark } from "../ui/LogoMark";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
-  { label: "Builds", href: "/projects" },
-  { label: "Story", href: "/about" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Credentials", href: "/#credentials" },
-  { label: "Contact", href: "/contact" },
+  { label: "Work", href: "#work" },
+  { label: "Info", href: "#info" },
+  { label: "Archive", href: "#archive" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-ink/72 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/45 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Main navigation">
         <Link to="/" className="flex items-center gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember-400">
           <LogoMark size="sm" />
@@ -26,18 +28,18 @@ export function Navigation() {
           </div>
         </Link>
         <div className="hidden items-center gap-1 md:flex">
+          <span className="mr-2 rounded-full border border-ember-400/30 bg-ember-500/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ember-200">
+            Open to AI/Data roles
+          </span>
           {navItems.map((item) => (
-            <NavLink
+            <MagneticLink
               key={item.label}
-              to={item.href}
-              className={({ isActive }) =>
-                `rounded-lg px-3 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember-400 ${
-                  isActive ? "text-ember-200" : "text-white/62 hover:bg-white/[0.06] hover:text-white"
-                }`
-              }
+              href={isHome ? item.href : `/${item.href}`}
+              data-cursor="open"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-white/62 transition hover:bg-white/[0.06] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember-400"
             >
               {item.label}
-            </NavLink>
+            </MagneticLink>
           ))}
           <ThemeToggle />
         </div>
@@ -53,14 +55,14 @@ export function Navigation() {
       {open ? (
         <div className="border-t border-white/10 px-4 py-3 md:hidden">
           {navItems.map((item) => (
-            <NavLink
+            <a
               key={item.label}
               onClick={() => setOpen(false)}
-              to={item.href}
+              href={isHome ? item.href : `/${item.href}`}
               className="block rounded-lg px-3 py-3 text-sm font-medium text-white/72 hover:bg-white/[0.06] hover:text-white"
             >
               {item.label}
-            </NavLink>
+            </a>
           ))}
           <div className="px-3 py-3">
             <ThemeToggle />

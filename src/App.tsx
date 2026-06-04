@@ -13,8 +13,6 @@ function ScrollHandler() {
 
   useEffect(() => {
     if (location.hash) {
-      const id = location.hash.slice(1);
-      window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
       return;
     }
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -30,6 +28,8 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/sudeep-builds" element={<Navigate to="/" replace />} />
+          <Route path="/sudeep-builds/*" element={<Navigate to="/" replace />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/about" element={<About />} />

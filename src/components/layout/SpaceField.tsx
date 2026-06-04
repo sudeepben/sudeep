@@ -1,11 +1,14 @@
 import { useEffect, useRef } from "react";
 
 type Particle = {
+  baseX: number;
+  baseY: number;
   x: number;
   y: number;
-  z: number;
   vx: number;
   vy: number;
+  size: number;
+  phase: number;
 };
 
 export function SpaceField() {
@@ -13,97 +16,128 @@ export function SpaceField() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const context = canvas.getContext("2d");
-    if (!context) return;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let frame = 0;
+    const pointer = { x: -9999, y: -9999, active: false };
     let width = 0;
     let height = 0;
+    let frame = 0;
+    let tick = 0;
     let particles: Particle[] = [];
 
     const resize = () => {
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = Math.floor(width * pixelRatio);
-      canvas.height = Math.floor(height * pixelRatio);
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-      const count = Math.min(120, Math.max(54, Math.floor((width * height) / 18000)));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width - width / 2,
-        y: Math.random() * height - height / 2,
-        z: Math.random() * 0.85 + 0.15,
-        vx: (Math.random() - 0.5) * 0.08,
-        vy: (Math.random() - 0.5) * 0.08,
-      }));
+      const columns = Math.max(10, Math.floor(width / 110));
+      const rows = Math.max(8, Math.floor(height / 96));
+      particles = [];
+
+      for (let y = 0; y <= rows; y += 1) {
+        for (let x = 0; x <= columns; x += 1) {
+          const baseX = (x / columns) * width + (Math.random() - 0.5) * 34;
+          const baseY = (y / rows) * height + (Math.random() - 0.5) * 34;
+          particles.push({
+            baseX,
+            baseY,
+            x: baseX,
+            y: baseY,
+            vx: 0,
+            vy: 0,
+            size: Math.random() * 1.8 + 0.8,
+            phase: Math.random() * Math.PI * 2,
+          });
+        }
+      }
+    };
+
+    const handleMove = (event: PointerEvent) => {
+      pointer.active = true;
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+    };
+
+    const handleLeave = () => {
+      pointer.active = false;
+      pointer.x = -9999;
+      pointer.y = -9999;
     };
 
     const draw = () => {
+      tick += reduceMotion ? 0 : 0.012;
       const isLight = document.documentElement.classList.contains("light");
       context.clearRect(0, 0, width, height);
 
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const dotColor = isLight ? "15, 23, 42" : "255, 255, 255";
-      const lineColor = isLight ? "249, 115, 22" : "249, 115, 22";
+      const dot = isLight ? "15, 23, 42" : "255, 255, 255";
+      const accent = isLight ? "234, 88, 12" : "249, 115, 22";
+      const wave = isLight ? "15, 23, 42" : "255, 255, 255";
 
       particles.forEach((particle) => {
-        particle.z += reduceMotion ? 0 : 0.0018;
-        particle.x += reduceMotion ? 0 : particle.vx;
-        particle.y += reduceMotion ? 0 : particle.vy;
+        const waveX = Math.sin(tick + particle.phase + particle.baseY * 0.004) * 10;
+        const waveY = Math.cos(tick * 0.85 + particle.phase + particle.baseX * 0.003) * 8;
+        const targetX = particle.baseX + waveX;
+        const targetY = particle.baseY + waveY;
 
-        if (particle.z > 1 || Math.abs(particle.x) > width * 0.62 || Math.abs(particle.y) > height * 0.62) {
-          particle.x = Math.random() * width - width / 2;
-          particle.y = Math.random() * height - height / 2;
-          particle.z = 0.15;
+        particle.vx += (targetX - particle.x) * 0.018;
+        particle.vy += (targetY - particle.y) * 0.018;
+
+        const distance = Math.hypot(particle.x - pointer.x, particle.y - pointer.y);
+        if (pointer.active && distance < 170 && distance > 0.01 && !reduceMotion) {
+          const force = (1 - distance / 170) * 4.8;
+          particle.vx += ((particle.x - pointer.x) / distance) * force;
+          particle.vy += ((particle.y - pointer.y) / distance) * force;
         }
 
-        const perspective = 0.45 + particle.z * 1.7;
-        const x = centerX + particle.x * perspective;
-        const y = centerY + particle.y * perspective;
-        const radius = 0.7 + particle.z * 1.8;
-        context.beginPath();
-        context.arc(x, y, radius, 0, Math.PI * 2);
-        context.fillStyle = `rgba(${dotColor}, ${isLight ? 0.2 + particle.z * 0.2 : 0.16 + particle.z * 0.28})`;
-        context.fill();
+        particle.vx *= 0.9;
+        particle.vy *= 0.9;
+        particle.x += particle.vx;
+        particle.y += particle.vy;
       });
 
       for (let index = 0; index < particles.length; index += 1) {
         const a = particles[index];
-        for (let nextIndex = index + 1; nextIndex < particles.length; nextIndex += 1) {
-          const b = particles[nextIndex];
-          const ax = centerX + a.x * (0.45 + a.z * 1.7);
-          const ay = centerY + a.y * (0.45 + a.z * 1.7);
-          const bx = centerX + b.x * (0.45 + b.z * 1.7);
-          const by = centerY + b.y * (0.45 + b.z * 1.7);
-          const distance = Math.hypot(ax - bx, ay - by);
-          if (distance < 120) {
-            context.beginPath();
-            context.moveTo(ax, ay);
-            context.lineTo(bx, by);
-            context.strokeStyle = `rgba(${lineColor}, ${(1 - distance / 120) * (isLight ? 0.08 : 0.11)})`;
-            context.lineWidth = 1;
-            context.stroke();
-          }
+        for (let next = index + 1; next < particles.length; next += 1) {
+          const b = particles[next];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance > 112) continue;
+          context.beginPath();
+          context.moveTo(a.x, a.y);
+          context.lineTo(b.x, b.y);
+          context.strokeStyle = `rgba(${wave}, ${(1 - distance / 112) * (isLight ? 0.05 : 0.075)})`;
+          context.lineWidth = 1;
+          context.stroke();
         }
       }
 
-      frame = window.requestAnimationFrame(draw);
+      particles.forEach((particle, index) => {
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        context.fillStyle = index % 9 === 0 ? `rgba(${accent}, ${isLight ? 0.38 : 0.42})` : `rgba(${dot}, ${isLight ? 0.18 : 0.28})`;
+        context.fill();
+      });
+
+      frame = requestAnimationFrame(draw);
     };
 
     resize();
     draw();
     window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerleave", handleLeave);
 
     return () => {
+      cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
-      window.cancelAnimationFrame(frame);
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerleave", handleLeave);
     };
   }, []);
 

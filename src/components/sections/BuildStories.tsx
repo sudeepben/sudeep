@@ -10,12 +10,12 @@ export function BuildStories() {
           title="Seven builds, one operating pattern."
           description="The homepage stays light; the detail pages hold the deeper problem, approach, and system notes."
         />
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/10">
           {projects.map((project) => (
             <a
               key={project.slug}
               href={`${import.meta.env.BASE_URL}projects/${project.slug}`}
-              className="grid gap-3 border-b border-white/10 px-5 py-4 transition last:border-b-0 hover:bg-white/[0.05] md:grid-cols-[80px_1fr_1fr]"
+              className="grid gap-3 border-b border-white/10 px-5 py-4 transition last:border-b-0 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember-400 md:grid-cols-[80px_1fr_1fr]"
             >
               <span className="font-mono text-xs text-ember-200">{project.number}</span>
               <span className="font-semibold text-white">{project.title}</span>

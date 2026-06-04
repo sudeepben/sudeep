@@ -27,7 +27,7 @@ export function WorkSection() {
                 to={`/projects/${project.slug}`}
                 data-cursor="view"
                 onMouseEnter={() => setActive(project)}
-                className="reveal-item group grid gap-4 py-7 transition duration-300 hover:bg-white/[0.035] sm:grid-cols-[4rem_1fr_auto] sm:px-4"
+                className="reveal-item project-row group grid gap-4 py-7 transition duration-300 sm:grid-cols-[4rem_1fr_auto] sm:px-4"
               >
                 <span className="font-mono text-xs text-ember-300">{String(index + 1).padStart(2, "0")}</span>
                 <span>
@@ -35,6 +35,13 @@ export function WorkSection() {
                     {project.title}
                   </span>
                   <span className="mt-2 block max-w-3xl text-sm leading-6 text-white/48">{project.summary}</span>
+                  <span className="mt-4 flex flex-wrap gap-2">
+                    {project.tech.slice(0, 4).map((item) => (
+                      <span key={item} className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/32">
+                        {item}
+                      </span>
+                    ))}
+                  </span>
                 </span>
                 <span className="flex items-center gap-3 text-sm text-white/48 sm:justify-end">
                   {project.category}

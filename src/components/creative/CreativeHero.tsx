@@ -66,6 +66,12 @@ export function CreativeHero() {
                 Resume <Download className="h-4 w-4" />
               </MagneticLink>
             </div>
+
+            <div className="hero-copy mt-10 grid max-w-4xl gap-3 border-t border-white/10 pt-5 text-xs uppercase tracking-[0.18em] text-white/40 sm:grid-cols-3">
+              <p><span className="block font-mono text-ember-300">Focus</span><span className="mt-2 block normal-case tracking-normal text-white/58">RAG, pipelines, dashboards</span></p>
+              <p><span className="block font-mono text-ember-300">Role</span><span className="mt-2 block normal-case tracking-normal text-white/58">AI/Data Engineer</span></p>
+              <p><span className="block font-mono text-ember-300">Based</span><span className="mt-2 block normal-case tracking-normal text-white/58">{contact.location}</span></p>
+            </div>
           </div>
 
           <aside className="hero-portrait relative mx-auto w-full max-w-[15rem] self-center lg:mx-0">

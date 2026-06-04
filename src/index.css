@@ -46,6 +46,7 @@ body {
   min-width: 320px;
   background: rgb(var(--page-bg));
   overflow-x: hidden;
+  text-rendering: geometricPrecision;
 }
 
 a {
@@ -96,6 +97,13 @@ a {
   color: rgb(255 255 255);
 }
 
+.creative-button:focus-visible,
+.creative-icon-link:focus-visible,
+.project-row:focus-visible {
+  outline: 2px solid rgb(251 146 60);
+  outline-offset: 4px;
+}
+
 .creative-button-primary {
   border-color: rgb(249 115 22);
   background: rgb(249 115 22);
@@ -119,6 +127,27 @@ a {
 
 .creative-icon-link:hover {
   color: rgb(255 255 255);
+}
+
+.project-row {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, rgb(249 115 22 / 0.12), rgb(255 255 255 / 0.035));
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-row:hover::before,
+.project-row:focus-visible::before {
+  transform: scaleX(1);
 }
 
 .custom-cursor-dot,
@@ -269,6 +298,11 @@ html.light .creative-button:not(.creative-button-primary):hover {
 
   .creative-icon-link span {
     display: none;
+  }
+
+  .hero-title-shell {
+    max-width: 100%;
+    overflow-wrap: normal;
   }
 }
 
